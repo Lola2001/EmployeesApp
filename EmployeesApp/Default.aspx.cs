@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -21,7 +22,10 @@ namespace EmployeesApp
                 EmployeeGridView.DataSource = orderedEmployees;
                 EmployeeGridView.DataBind();
 
-               
+                ChartGenerator chartGenerator = new ChartGenerator();
+                string chartPath = Server.MapPath("~/Charts/EmployeeWorkChart.png");
+                Directory.CreateDirectory(Path.GetDirectoryName(chartPath));
+                chartGenerator.GeneratePieChart(orderedEmployees, chartPath);
             }
         }
 
